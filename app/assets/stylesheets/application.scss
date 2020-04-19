@@ -17,3 +17,12 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "recipes_index";
+@import "registrations_new";
+
+*{
+  box-sizing: border-box;
+  font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, sans-serif;
+}
+a{
+  text-decoration: none;
+}

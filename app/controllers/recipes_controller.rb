@@ -1,22 +1,30 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!, except:[:index,:show]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.includes(:user).last(3)
+    @recipe = Recipe.includes(:user).last(3)
   end
 
   def show
-    if @item.blank?
-      redirect_to root_path, notice: "この商品はすでに削除されています"
+    if @recipe.blank?
+      redirect_to root_path, notice: "このレシピは削除されています"
     end
   end
 
   def new
-    @recipe = Recip.new
+    @recipe = recipe.new
     @category_parent =  Category.where("ancestry is null")
   end
 
   def create
+    @recipe = Reciper.new(recipe_params)
+    if @item.save
+      # DeleteUnreferencedBlobJob.perform_later 
+      redirect_to root_path, notice: "投稿できました"
+    else
+      render :new, notice: "投稿できませんでした"
+    end
   end
 
   def edit
@@ -26,21 +34,26 @@ class RecipesController < ApplicationController
   end
 
   def destroy
+    if recipe.present?
+      if recipe.destroy
+        redirect_to root_path, notice: "削除しました"
+      else
+        redirect_to root_path, notice: "削除に失敗しました"
+      end
+    else
+      redirect_to root_path, notice: "レシピが見つかりません"
+    end
   end
 
 
   private
 
-  def item_params
-    params.require(:item).permit(:name, :text, :category_id, :condition_id, :deliverycost_id, :pref_id, :delivery_days_id, :price, images: []).merge(user_id: current_user.id, boughtflg_id:"1")
+  def recipe_params
+    params.require(:recipe).permit(:title, :category_id, :text, :image, :point).merge(user_id: current_user.id)
   end
 
-  def item_update_params
-    params.require(:item).permit(:name, :text, :category_id, :condition_id, :deliverycost_id, :pref_id, :delivery_days_id, :price, images: [], delete_image_ids: []).merge(user_id: current_user.id, boughtflg_id:"1")
-  end
-
-  def set_item
-    @item = Item.find_by(id:params[:id])
+  def set_recipe
+    @recipe = Recipe.find_by(id: params[:id])
   end
 
 end

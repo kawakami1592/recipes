@@ -6,6 +6,7 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
       t.references :category
       t.text       :text
       t.string     :image
+      t.text       :point
 
       t.timestamps
     end

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.bigint "category_id"
     t.text "text"
     t.string "image"
+    t.text "point"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_recipes_on_category_id"
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.string "lastname_kana"
     t.string "firstname_kana"
     t.string "zipcode"
-    t.bigint "Prefecture_id"
+    t.bigint "prefecture_id"
     t.string "city"
     t.string "address"
     t.string "buildingname"
@@ -81,11 +82,11 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["Prefecture_id"], name: "index_users_on_Prefecture_id"
     t.index ["birthday_id"], name: "index_users_on_birthday_id"
     t.index ["birthmonth_id"], name: "index_users_on_birthmonth_id"
     t.index ["birthyear_id"], name: "index_users_on_birthyear_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

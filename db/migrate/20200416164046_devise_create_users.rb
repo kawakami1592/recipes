@@ -12,7 +12,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string     :lastname_kana
       t.string     :firstname_kana
       t.string     :zipcode
-      t.references :Prefecture
+      t.references :prefecture
       t.string     :city
       t.string     :address
       t.string     :buildingname
