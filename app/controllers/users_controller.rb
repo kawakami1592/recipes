@@ -13,14 +13,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
 
   private
 
   def user_params
-    params.require(:user).permit(:nickname,:lastname,:firstname,:lastname_kana,:firstname_kana,:zipcode,:Prefecture_id,:city,:address,:buildingname,:phone,:birthyear_id,:birthmonth_id,:birthday_id)
+    params.require(:user).permit(:email,:nickname,:lastname,:firstname,:lastname_kana,:firstname_kana)
     # 入力された値を受け取る
   end
 
