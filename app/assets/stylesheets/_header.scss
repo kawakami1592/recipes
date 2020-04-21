@@ -1,0 +1,19 @@
+.header{
+  background-color: #f1cd93;
+  height:100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__logo{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  &__title{
+    height:100%;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 100px;
+  }
+}

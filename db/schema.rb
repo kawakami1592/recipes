@@ -68,25 +68,12 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.string "firstname"
     t.string "lastname_kana"
     t.string "firstname_kana"
-    t.string "zipcode"
-    t.bigint "prefecture_id"
-    t.string "city"
-    t.string "address"
-    t.string "buildingname"
-    t.string "phone"
-    t.bigint "birthyear_id"
-    t.bigint "birthmonth_id"
-    t.bigint "birthday_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["birthday_id"], name: "index_users_on_birthday_id"
-    t.index ["birthmonth_id"], name: "index_users_on_birthmonth_id"
-    t.index ["birthyear_id"], name: "index_users_on_birthyear_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

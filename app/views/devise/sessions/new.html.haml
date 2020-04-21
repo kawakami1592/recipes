@@ -1,0 +1,29 @@
+.sign-in
+  = render "shared/header"
+
+  .sign-in__header
+    .sign-in__header__title
+      ログイン！
+    = render "devise/shared/links"
+    
+  .sign-in__main
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
+      .field-email
+        .field-email__label
+          = f.label :メールアドレス
+          = f.email_field :email,{class:'user-input', autocomplete: "email"}
+
+      .field-password
+        .field-password__label
+          = f.label :パスワード
+          = f.password_field :password, {class:'user-input', autocomplete: "current-password"}
+
+      -# - if devise_mapping.rememberable?
+      -#   .field
+      -#     = f.check_box :remember_me
+      -#     = f.label :remember_me
+
+      .actions
+        = f.submit "ログインする",class: 'sign-in-btn'
+

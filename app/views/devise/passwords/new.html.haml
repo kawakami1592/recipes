@@ -1,0 +1,18 @@
+.password-reissue
+  = render "shared/header"
+
+  .sign-in__header
+    .sign-in__header__title
+      パスワード再発行
+    = link_to "ログイン画面へ", new_session_path(resource_name), class: 'log-in-return'
+    = link_to "ユーザー登録へ", new_registration_path(resource_name), class: 'sign-up-link'
+
+  .password-reissue__main
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .field-email
+        .field-email__label
+          = f.label :メールアドレス
+          = f.email_field :email, {class:'user-input', autofocus: true, autocomplete: "email"}
+      .actions
+        = f.submit "メールを送信します", class: 'send-btn'

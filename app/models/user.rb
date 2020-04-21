@@ -1,11 +1,6 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to_active_hash :prefecture
-  belongs_to_active_hash :birthyear
-  belongs_to_active_hash :birthmonth
-  belongs_to_active_hash :birthday
 
   has_many :recipes
 

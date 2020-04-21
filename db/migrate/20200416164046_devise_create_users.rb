@@ -11,15 +11,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string     :firstname
       t.string     :lastname_kana
       t.string     :firstname_kana
-      t.string     :zipcode
-      t.references :prefecture
-      t.string     :city
-      t.string     :address
-      t.string     :buildingname
-      t.string     :phone
-      t.references :birthyear
-      t.references :birthmonth
-      t.references :birthday
+
 
       ## Recoverable
       t.string   :reset_password_token

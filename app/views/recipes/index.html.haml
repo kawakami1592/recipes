@@ -1,4 +1,4 @@
 .top
-  aa
-  -# %header
+  = link_to 'ログアウト', destroy_user_session_path, method: :delete
+  = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
   
