@@ -1,4 +1,41 @@
 .top
-  = link_to 'ログアウト', destroy_user_session_path, method: :delete
-  = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
-  
+  = render "shared/header"
+
+  .top__header
+    .top__header__titl
+      %p 女性が作ってもらいたい料理と、男性が作ってあげたい料理ってびっくりするくらい違うんです。
+      %p そんな食い違いを解消しませんか？
+      %p 男性諸君！女性に喜ばれる料理を作ろうじゃないか！！
+
+    .top__header__search
+      = form_with url: 'root' do |f|
+        = f.label :text, {class: 'top__header__search__label'} do
+          = f.text_field :text, placeholder: '', class: 'top__header__search__label__form'
+          %i.fas.fa-search
+        = f.submit '探す', class: 'top__header__search__submit'
+
+    .top__header__categories
+      %p カテゴリー選択
+      .top__header__categories__box
+        - @category_parent.each do |parent|
+          = link_to "#{parent.name}", "#",class: 'top__header__categories__box__list'
+  .top__main
+    .top__main__woman
+      作ってもらいたい
+      .top__main__woman__easy
+      .top__main__woman__luxur
+    .top__main__man
+      作ってあげたい
+      .top__main__man__easy
+      .top__main__man__luxur
+
+
+
+
+
+
+
+
+  -# = link_to 'ログアウト', destroy_user_session_path, method: :delete
+  -# = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
+  = link_to '投稿する',  new_recipe_path, class: 'new_recipe-link'

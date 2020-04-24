@@ -38,23 +38,16 @@
             必須
           = f.text_field :nickname, {class:'user-input', required: "required", placeholder: '例) まーたろー'}
       
-      .field-name
-        .field-name__label
-          = f.label :お名前（全角）
+      .field-sex
+        .field-sex__label
+          = f.label :性別
           .require
             必須
-        .field-name__input
-          = f.text_field :lastname, {class:'user-name-input', required: "required", placeholder: '例) 山田'}
-          = f.text_field :firstname, {class:'user-name-input', required: "required", placeholder: '例) 太郎'}
+          .field-sex__label__select
+            = f.collection_select :sex_id, Sex.all, :id, :sex, {prompt: "選択して下さい"}, {class:'user-selec', required: "required"}
 
-      .field-kana
-        .field-kana__label
-          = f.label :お名前カナ（全角）
-          .require
-            必須
-        .field-kana__input
-          = f.text_field :lastname_kana, {class:'user-name-input', required: "required", placeholder: '例) ヤマダ'}
-          = f.text_field :firstname_kana, {class:'user-name-input', required: "required", placeholder: '例) タロウ'}
+            -# = f.collection_select :category_id, @category_parent, :id, :name, {prompt: "選択して下さい"},{ class: 'sell-collection_select__input', id: 'category-select-parent', required: "required"}
+
 
       .actions
         = f.submit '登録する', class: 'sign-up-btn'

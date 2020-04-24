@@ -64,10 +64,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "nickname"
-    t.string "lastname"
-    t.string "firstname"
-    t.string "lastname_kana"
-    t.string "firstname_kana"
+    t.bigint "sex_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -75,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sex_id"], name: "index_users_on_sex_id"
   end
 
 end

@@ -15,7 +15,6 @@
 .sign-up, .sign-in, .password-reissue{
   background-color: #f1cd93;
   height:100%;
-
   width:100%;
 
   &__header{
@@ -94,33 +93,34 @@
         width: 100%;
         height:50px;
         padding: 0 2%;
-        border-radius: 10px;
+        border-radius: 5px;
         border: 1px solid #ccc;
         font-size: 16px;
         font-weight:normal; 
       }
     }
 
-    .field-name, .field-kana{
+    .field-sex{
       margin: 0 15% 20px 15% ;
       &__label{
         font-size: 18px;
         font-weight: bold;
-      }
-      &__input{
-        display: flex;
-        justify-content: space-between;
-      }
-      .user-name-input{ 
-        width: 49%;
-        height:50px;
-        padding: 0 2%;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 16px;
+        &__select{
+          width: 100%;
+          height:50px;
+        
+          .user-selec{
+            width: 100%;
+            height:100%;
+            background-color:white;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-weight:normal; 
+          }
+        }
       }
     }
-
+    
     .actions{
       margin: 0 15% 20px 15% ;
       font-size: 18px;

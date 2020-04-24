@@ -1,0 +1,56 @@
+.new
+  = render "shared/header"
+
+  .new__header
+    .new__header__title
+      レシピを教えてください
+
+  .new__main
+    = form_with model: @recipe do |f|
+
+      .new__main__title
+        = f.text_field :title, class:'new__main__title__input', required: "required", placeholder: 'レシピ名'
+
+      .new__main__box
+        .new__main__box__left
+          = f.label :image, class: 'new__main__box__left__label' do
+            = f.file_field :image, class: 'new__main__box__left__label__input', required: "required", placeholder: '画像を選んでください'
+            %pre
+              %i.fas.fa-camera.fa-lg
+              クリックして画像を選んでください
+
+        .new__main__box__right
+          .new__main__box__right__text
+            = f.text_area :text, class: 'new__main__box__right__text__input', required: "required",rows: '7', maxlength: '100', placeholder: 'レシピの紹介文'
+
+          .new__main__box__right__title
+            材料
+          .new__main__box__right__ingredients
+            = f.fields_for :ingredients do |i|
+              .new__main__box__right__ingredients__name
+                = i.text_field :ingredient, class:'new__main__box__right__ingredients__name__input', required: "required", placeholder: '材料名'
+              .new__main__box__right__ingredients__quantity
+                = i.text_field :quantity, class:'new__main__box__right__ingredients__name__input', required: "required", placeholder: '分量'
+          %button{type: 'button', class: 'new__main__box__right__btn'} 追加する
+
+      .new__main__maked
+        作り方
+      .new__main__makedbox
+        .new__main__makedbox__init
+          = f.fields_for :makeds do |m|
+            .new__main__makedbox__init__image
+              = m.label :images, class: 'new__main__makedbox__init__image__label' do
+                = m.file_field :images, class:'new__main__makedbox__init__image__label__input', placeholder: '画像を選んでください'
+                %pre
+                  %i.fas.fa-camera.fa-lg
+                  画像を選んでください
+            .new__main__makedbox__init__text
+              = m.text_area :text, class:'new__main__makedbox__init__text__input', placeholder: '作り方を入力してください'
+        %button{type: 'button', class: 'new__main__makedbox__init__btn'} 追加する
+
+      .new__main__point
+        = f.text_area :point,class: 'new__main__point__input', maxlength: '150', placeholder: 'コツ、ポイント'
+
+      .new__main__submit
+        = f.submit '投稿する', class: 'new__main__submit__btn'
+        = link_to 'もどる', root_path, class: 'new__main__submit__return'
