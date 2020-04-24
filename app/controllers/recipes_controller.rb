@@ -3,6 +3,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def index
+    @category_parent = Category.where("ancestry is null")
     @recipe = Recipe.includes(:user).last(3)
   end
 
@@ -13,14 +14,16 @@ class RecipesController < ApplicationController
   end
 
   def new
-    @recipe = recipe.new
-    @category_parent =  Category.where("ancestry is null")
+    @recipe = Recipe.new
+    @recipe.ingredients.new
+    @recipe.makeds.new
+    @category_parent = Category.where("ancestry is null")
   end
 
   def create
-    @recipe = Reciper.new(recipe_params)
-    if @item.save
-      # DeleteUnreferencedBlobJob.perform_later 
+    @recipe = Recipe.new(recipe_params)
+    binding.pry
+    if @recipe.save
       redirect_to root_path, notice: "投稿できました"
     else
       render :new, notice: "投稿できませんでした"
@@ -49,7 +52,8 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :category_id, :text, :image, :point).merge(user_id: current_user.id)
+    # params.require(:recipe).permit(:title, :category_id, :text, :image, :point).merge(user_id: current_user.id)
+    params.require(:recipe).permit(:title, :category_id, :text, :image, :point, ingredients_attributes: [:ingredient, :quantity], makeds_attributes: [:text, :image]).merge(user_id: current_user.id)
   end
 
   def set_recipe
