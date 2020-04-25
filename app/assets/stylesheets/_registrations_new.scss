@@ -138,4 +138,14 @@
       }
     }
   }
+  .member{
+    border: 1px solid black;
+    width: 20%;
+    &__men{
+      margin-top: 10px;
+    }
+    &__women{
+      margin-top: 10px;
+    }
+  }
 }

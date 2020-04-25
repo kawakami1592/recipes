@@ -18,16 +18,41 @@
     margin: 0 auto;
     padding: 10px;
 
-    &__title{
-      height:50px;
-      width:100%;
-      &__input{
+    &__top{
+      display: flex;
+      &__title{
         height:50px;
         width:100%;
-        border-radius: 5px;
+        &__input{
+          height:50px;
+          width:100%;
+          border-radius: 5px;
+        }
+      }
+      &__category{
+        height:50px;
+        width:25%;
+        position: relative;
+        &__input{
+          background-color: #fff;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          height:50px;
+          width:100%;
+          border-radius: 5px;
+          padding-left: 10px;
+        }
+        .fas.fa-chevron-down{
+          pointer-events: none;
+          position: absolute;
+          right: 5px;
+          top: 40%;
+          color: rgb(136, 136, 136);
+        }
       }
     }
-    &__box{
+    &__upper-half{
       min-height:100%;
       width:100%;
       display: flex;
