@@ -17,12 +17,21 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
     @recipe.ingredients.new
     @recipe.makeds.new
-    @category_parent = Category.where("ancestry is null")
+
+    if current_user.sex_id == 1
+      @category_parent = Category.find_by(id: 12).name
+      @category_children = Category.find_by(id: 12).children
+    elsif current_user.sex_id == 2
+      @category_parent = Category.find_by(id: 1).name
+      @category_children = Category.find_by(id: 1).children
+    else
+      redirect_to root_path, notice: "ログインしてください"
+    end
+
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
-    binding.pry
     if @recipe.save
       redirect_to root_path, notice: "投稿できました"
     else
@@ -52,7 +61,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    # params.require(:recipe).permit(:title, :category_id, :text, :image, :point).merge(user_id: current_user.id)
     params.require(:recipe).permit(:title, :category_id, :text, :image, :point, ingredients_attributes: [:ingredient, :quantity], makeds_attributes: [:text, :image]).merge(user_id: current_user.id)
   end
 
