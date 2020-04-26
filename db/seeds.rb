@@ -2,7 +2,7 @@
 woman_want_child_array = ['手軽','豪華']
 woman_want_grandchild_array = [['肉','魚','野菜','その他'],['肉','魚','野菜','その他']]
 
-parent = Category.create(name: '作ってもらいたい')
+parent = Category.create(name: '作ってほしい')
 woman_want_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   woman_want_grandchild_array[i].each do |grandchild|

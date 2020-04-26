@@ -8,12 +8,22 @@
   .new__main
     = form_with model: @recipe do |f|
       .new__main__top
-        .new__main__top__title
-          = f.text_field :title, {class:'new__main__top__title__input', required: "required", placeholder: 'レシピ名'}
         .new__main__top__category
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            = f.collection_select :category_id, @category_parent, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
+            .new__main__top__category__input
+              #{@category_parent}
+        .new__main__top__category
+          = f.label :category_id, {class: 'new__main__top__category__label'} do
+            = f.collection_select :category_id, @category_children, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
+        .new__main__top__category
+          = f.label :category_id, {class: 'new__main__top__category__label'} do
+            = f.collection_select :category_id, @category_children, :id, :name, {prompt: 'メインの材料'},{ class: 'new__main__top__category__input', required: "required"}
+            %i.fas.fa-chevron-down
+
+      .new__main__title
+        = f.text_field :title, {class:'new__main__title__input', required: "required", placeholder: 'レシピ名'}
+        
 
       .new__main__upper-half
         .new__main__upper-half__left
