@@ -1,29 +1,36 @@
-# 女性が作ってもらいたい料理 Women want you to make it
-woman_want_child_array = ['手軽','豪華']
-woman_want_grandchild_array = [['肉','魚','野菜','その他'],['肉','魚','野菜','その他']]
+dish_array = ['主食','メイン','サイド','スープ','デザート','その他']
+foodstuff_array = [
+                    ['米','メン','パン','その他'],
+                    ['肉','魚','野菜','その他'],
+                    ['肉','魚','野菜','その他'],
+                    ['肉','魚','野菜','その他'],
+                    ['和菓子','洋菓子','その他'],
+                    ['肉','魚','野菜','その他']
+                  ]
+cooking_method_array = ['焼き物','ゆでる','炒め物','揚げ物','煮物','和え物','蒸し物','その他']
 
-parent = Category.create(name: '作ってほしい')
-woman_want_child_array.each_with_index do |child, i|
+
+dish_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
-  woman_want_grandchild_array[i].each do |grandchild|
-    child.children.create(name: grandchild)
-  end
-end
-
-# 男性が作ってあげたい料理
-want_to_child_array = ['手軽','豪華']
-want_to_grandchild_array = [['肉','魚','野菜','その他'],['肉','魚','野菜','その他']]
-
-parent = Category.create(name: '作ってあげたい')
-want_to_child_array.each_with_index do |child, i|
-  child = parent.children.create(name: child)
-  want_to_grandchild_array[i].each do |grandchild|
+  foodstuff_array[i].each do |grandchild|
     child.children.create(name: grandchild)
   end
 end
 
 
-man = User.create!(
+
+# country_array.each do |country|
+#   parent = Category.create(name: country)
+#   dish_array.each_with_index do |child, i|
+#     child = parent.children.create(name: child)
+#     foodstuff_array[i].each do |grandchild|
+#       child.children.create(name: grandchild)
+#     end
+#   end
+# end
+
+
+User.create!(
   nickname: 'まーたろー',
   email: 'hoge@hoge',
   password: '1111111',
@@ -31,7 +38,7 @@ man = User.create!(
   sex_id:'1'
 )
 
-woman = User.create!(
+User.create!(
   nickname: 'あやや',
   email: 'fuga@fuga',
   password: '2222222',

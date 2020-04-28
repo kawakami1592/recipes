@@ -50,10 +50,35 @@
       height:50px;
       width:100%;
       margin-top: 5px;
+      display: flex;
       &__input{
         height:50px;
-        width:100%;
+        width:80%;
         border-radius: 5px;
+        padding-left: 10px;
+      }
+      &__difficulty{
+        height:50px;
+        width:20%;
+        border-radius: 5px;
+        position: relative;
+        &__input{
+          background-color: #fff;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          padding-left: 10px;
+          height:50px;
+          width:100%;
+          border-radius: 5px;
+        }
+        .fas.fa-chevron-down{
+          pointer-events: none;
+          position: absolute;
+          right: 5px;
+          top: 30%;
+          color: rgb(136, 136, 136);
+        }
       }
     }
 
@@ -122,6 +147,7 @@
             &__input{
               width:100%;
               border-radius: 5px;
+              padding-left: 10px;
             }
           }
           &__quantity{

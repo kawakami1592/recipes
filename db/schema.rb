@@ -54,9 +54,11 @@ ActiveRecord::Schema.define(version: 2020_04_17_142607) do
     t.text "text"
     t.string "image"
     t.text "point"
+    t.bigint "difficulty_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_recipes_on_category_id"
+    t.index ["difficulty_id"], name: "index_recipes_on_difficulty_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
