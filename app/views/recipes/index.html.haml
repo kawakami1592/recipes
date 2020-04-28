@@ -15,23 +15,82 @@
         = f.submit '探す', class: 'top__header__search__submit'
 
     .top__header__categories
-      %p カテゴリー選択
+      %p 食材選択
       .top__header__categories__box
         - @category_parent.each do |parent|
           = link_to "#{parent.name}", "#",class: 'top__header__categories__box__list'
+  
+
+
+
   .top__main
     .top__main__woman
-      作ってもらいたい
-      .top__main__woman__easy
-      .top__main__woman__luxur
+      女性が作ってほしい料理
+    .top__main__easy
+      簡単
+    .top__main__recipes
+      - if @woman_easy.blank?
+        教えてもらったレシピはありません
+      - else
+        - @woman_easy.reverse_each do |recipe|
+          .top__main__recipes__contents
+            .top__main__recipes__contents__title
+              = recipe.title
+            .top__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: '商品3')
+            .top__main__recipes__contents__text
+              = recipe.text
+       
+    .top__main__luxury
+      難しい
+    .top__main__recipes
+      - if @woman_luxury.blank?
+        教えてもらったレシピはありません
+      - else
+        - @woman_luxury.reverse_each do |recipe|
+          .top__main__recipes__contents
+            .top__main__recipes__contents__title
+              = recipe.title
+            .top__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: '商品3')
+            .top__main__recipes__contents__text
+              = recipe.text
+
     .top__main__man
-      作ってあげたい
-      .top__main__man__easy
-      .top__main__man__luxur
-
-
-
-
+      男性が作ってあげたい料理
+    .top__main__easy
+      簡単
+    .top__main__recipes
+      - if @man_easy.blank?
+        教えてもらったレシピはありません
+      - else
+        - @man_easy.reverse_each do |recipe|
+          .top__main__recipes__contents
+            .top__main__recipes__contents__title
+              = recipe.title
+            .top__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: '商品3')
+            .top__main__recipes__contents__text
+              = recipe.text
+        
+    .top__main__luxury
+      難しい
+    .top__main__recipes
+      - if @man_luxury.blank?
+        教えてもらったレシピはありません
+      - else
+        - @man_luxury.reverse_each do |recipe|
+          .top__main__recipes__contents
+            .top__main__recipes__contents__title
+              = recipe.title
+            .top__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: '商品3')
+            .top__main__recipes__contents__text
+              = recipe.text
 
 
 
@@ -39,3 +98,4 @@
   = link_to 'ログアウト', destroy_user_session_path, method: :delete
   = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
   = link_to '投稿する',  new_recipe_path, class: 'new_recipe-link'
+

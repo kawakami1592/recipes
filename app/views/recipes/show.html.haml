@@ -14,16 +14,16 @@
               #{@purpose}
         .new__main__top__category
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            = f.collection_select :category_id, @category_parent, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
+            -# = f.collection_select :category_id, @category_parent, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
         .new__main__top__category
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            = f.collection_select :category_id, @category_children, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
+            -# = f.collection_select :category_id, @category_children, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
             -# JSにて実装予定
         .new__main__top__category
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            = f.collection_select :category_id, @category_grandchildren, :id, :name, {prompt: 'メインの材料'},{ class: 'new__main__top__category__input', required: "required"}
+            -# = f.collection_select :category_id, @category_grandchildren, :id, :name, {prompt: 'メインの材料'},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
             -# JSにて実装予定
 

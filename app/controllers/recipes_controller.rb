@@ -4,7 +4,12 @@ class RecipesController < ApplicationController
 
   def index
     @category_parent = Category.where("ancestry is null")
-    @recipe = Recipe.includes(:user).last(3)
+    @woman_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 2").last(5)
+    @woman_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 2").last(5)
+    @man_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 1").last(5)
+    @man_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 1").last(5)
+
+    # binding.pry
   end
 
   def show
@@ -19,11 +24,17 @@ class RecipesController < ApplicationController
     @recipe.makeds.new
 
     if current_user.sex_id == 1
-      @category_parent = Category.find_by(id: 12).name
-      @category_children = Category.find_by(id: 12).children
-    elsif current_user.sex_id == 2
-      @category_parent = Category.find_by(id: 1).name
+      @purpose = "作ってあげたい"
+      @category_parent = Category.where("ancestry is null")
       @category_children = Category.find_by(id: 1).children
+      @category_grandchildren = Category.find_by(id: 2).children
+      #JSで３階層目を実装予定
+      # @category_grandchildren = Category.find("#{params[:child_id]}").children
+    elsif current_user.sex_id == 2
+      @purpose = "作ってほしい"
+      @category_parent = Category.where("ancestry is null")
+      @category_children = Category.find_by(id: 1).children
+      @category_grandchildren = Category.find_by(id: 2).children
     else
       redirect_to root_path, notice: "ログインしてください"
     end
@@ -61,7 +72,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :category_id, :text, :image, :point, ingredients_attributes: [:ingredient, :quantity], makeds_attributes: [:text, :image]).merge(user_id: current_user.id)
+    params.require(:recipe).permit(:title, :category_id, :text, :image, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity], makeds_attributes: [:text, :image]).merge(user_id: current_user.id)
   end
 
   def set_recipe
@@ -69,3 +80,4 @@ class RecipesController < ApplicationController
   end
 
 end
+
