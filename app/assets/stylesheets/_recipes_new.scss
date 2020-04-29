@@ -178,6 +178,9 @@
         &__image{
           height:100px;
           width:100%;
+          img{
+            object-fit: contain;
+          }
           &__label{
             background-color: rgb(246, 220, 178);
             height: 100%;
@@ -247,6 +250,4 @@
       }
     }
   }
-
-
 }

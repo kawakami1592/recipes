@@ -1,0 +1,231 @@
+.show{
+  background-color: #f1cd93;
+  height:100%;
+  width:100%;
+
+  &__header{
+    width:70%;
+    margin: 0 auto;
+    &__title{
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+  &__main{
+    height:100%;
+    width:70%;
+    background-color:rgb(245, 245, 245);
+    margin: 0 auto;
+    padding: 10px;
+
+    &__top{
+      display: flex;
+      &__category{
+        background-color: #fff;
+        height:35px;
+        line-height: 35px;
+        width:25%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding-left: 10px;
+      }
+    }
+
+    &__title{
+      height:50px;
+      width:100%;
+      margin-top: 5px;
+      display: flex;
+
+      &__name{
+        background-color: orange;
+        height:50px;
+        line-height: 50px;
+        width:80%;
+        font-size: 25px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding-left: 10px;
+        overflow:scroll;
+        font-weight: bold;
+      }
+      &__difficulty{
+        background-color: #fff;
+        height:50px;
+        line-height: 50px;
+        width:20%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding-left: 10px;
+      }
+    }
+
+    &__upper-half{
+      min-height:100%;
+      width:100%;
+      display: flex;
+      justify-content: center;
+
+      &__left{
+        height:300px;
+        width:50%;
+        background-color: rgb(246, 220, 178);
+        border-width: 1px;
+        border-style: dashed;
+        border-color: rgb(204, 204, 204);
+        border-radius: 5px;
+        margin-top: 5px;
+        img{
+          object-fit: contain;
+        }
+      }
+      &__right{
+        height:100%;
+        width:50%;
+        padding: 5px 0 5px 5px;
+        &__text{
+          height:100px;
+          width:100%;
+          background-color: #fff;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          overflow:scroll;
+          padding: 0 10px;
+        }
+        &__title{
+          background-color: orange;
+          height:30px;
+          width:100%;
+          font-size: 20px;
+          text-align: center;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          font-weight: bold;
+          margin-top: 5px;
+        }
+        &__ingredients{
+          height:100%;
+          width:100%;
+          display: flex;
+          justify-content: center;
+
+          &__name{
+            height:30px;
+            width:70%;
+            background-color: #fff;
+            border-radius: 5px;
+            padding-left: 10px;
+            border: 1px solid #ccc;
+            overflow:scroll;
+          }
+          &__quantity{
+            height:30px;
+            width:30%;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            overflow:scroll;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+    &__maked{
+      background-color: orange;
+      height: 40px;
+      line-height: 40px;
+      width: 100%;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      text-align: center;
+    }
+    &__makedbox{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      &__init{
+        height: 100%;
+        width: 20%;
+        padding-right: 5px;
+        &__image{
+          height: 120px;
+          background-color: rgb(246, 220, 178);
+          border-width: 1px;
+          border-style: dashed;
+          border-color: rgb(204, 204, 204);
+          border-radius: 5px;
+          img{
+            object-fit: contain;
+          }
+        }
+        &__text{
+          height:200px;
+          width:100%;
+          background-color: #fff;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          overflow:scroll;
+          padding: 0 10px;
+        }
+      }
+    }
+    &__points{
+      background-color: orange;
+      height: 40px;
+      line-height: 40px;
+      width: 100%;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      text-align: center;
+    }
+    &__point{
+      background-color: #fff;
+      height:70px;
+      width:100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      overflow:scroll;
+      padding: 0 10px;
+    }
+    &__btn{
+      margin-top: 5px;
+      &__edit{
+        background-color: #78e05e;
+        height:50px;
+        margin: 0 auto;
+        width:70%;
+        font-size: 17px;
+        line-height:50px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        border-radius: 5px;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+      &__return{
+        background-color: #ccc;
+        height:50px;
+        margin: 0 auto;
+        width:70%;
+        font-size: 17px;
+        line-height:50px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        border-radius: 5px;
+        margin-top: 5px;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

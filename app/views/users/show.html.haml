@@ -1,1 +1,5 @@
 user_show
+= link_to 'ログアウト', destroy_user_session_path, method: :delete
+= link_to 'トップ画面', root_path, class: 'top-link'
+= link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
+
