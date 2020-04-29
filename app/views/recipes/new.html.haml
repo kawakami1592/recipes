@@ -48,16 +48,16 @@
 
           .new__main__upper-half__right__title
             材料
-          .new__main__upper-half__right__ingredients
-            = f.fields_for :ingredients do |i|
+          = f.fields_for :ingredients do |i|
+            .new__main__upper-half__right__ingredients
               .new__main__upper-half__right__ingredients__name
                 = i.text_field :ingredient, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '材料名'}
               .new__main__upper-half__right__ingredients__quantity
                 = i.text_field :quantity, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '分量'}
 
 
-          .new__main__upper-half__right__ingredients
-            = f.fields_for :ingredients do |i|
+          = f.fields_for :ingredients do |i|
+            .new__main__upper-half__right__ingredients
               .new__main__upper-half__right__ingredients__name
                 = i.text_field :ingredient, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '材料名'}
               .new__main__upper-half__right__ingredients__quantity

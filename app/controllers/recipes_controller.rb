@@ -8,8 +8,6 @@ class RecipesController < ApplicationController
     @woman_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 2").last(5)
     @man_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 1").last(5)
     @man_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 1").last(5)
-
-    # binding.pry
   end
 
   def show
@@ -51,9 +49,28 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    if @recipe.present?
+      if @recipe.user_id == current_user.id
+        @category_parent = Category.where("ancestry is null")
+        @category_grandchildren = Category.find(@recipe.category_id)
+        # binding.pry
+
+
+      else
+        redirect_to root_path,notice: "投稿者ではありません"
+      end
+    else
+      redirect_to root_path,notice: "レシピが見つかりません"
+    end
   end
 
   def update
+    @recipe = Recipe.new(recipe_params)
+    if @recipe.save
+      redirect_to root_path, notice: "編集できました"
+    else
+      render :new, notice: "編集できませんでした"
+    end
   end
 
   def destroy
