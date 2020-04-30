@@ -1,0 +1,56 @@
+.category
+  = render "shared/header"
+
+  .category__header
+    .category__header__titl
+      %p カテゴリー別一覧
+
+      = link_to 'ログアウト', destroy_user_session_path, method: :delete
+      = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
+      = link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
+      = link_to '戻る', root_path, class: 'top-link'
+      - if user_signed_in?
+        = link_to 'マイページへ', user_path(current_user), class: 'new_recipe-link'
+
+    .category__header__search
+      = form_with url: 'root' do |f|
+        = f.label :text, {class: 'category__header__search__label'} do
+          = f.text_field :text, placeholder: '', class: 'category__header__search__label__form'
+          %i.fas.fa-search
+        = f.submit '探す', class: 'category__header__search__submit'
+
+    .category__header__categories
+      %p 食材選択
+      .category__header__categories__box
+        - @category_parent.each do |parent|
+          = link_to "#{parent.name}", list_by_category_recipe_url(parent.id),class: 'category__header__categories__box__list'
+
+
+  .category__main
+    .category__main__titl
+      #{@category.name}を使用したレシピ
+    .category__main__recipes
+      - if @recipes.blank?
+        教えてもらったレシピはありません
+      - else
+        - @recipes.reverse_each do |recipe|
+          .category__main__recipes__contents
+            .category__main__recipes__contents__tag
+              .category__main__recipes__contents__tag__difficulty
+                - if recipe.difficulty_id <= 3
+                  簡単
+                - else
+                  難しい
+              .category__main__recipes__contents__tag__want
+                - if recipe.user.sex_id == 1
+                  作ってあげたい
+                - else
+                  作って欲しい
+            .category__main__recipes__contents__title
+              = recipe.title
+            .category__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: 'メイン画像')
+            .category__main__recipes__contents__text
+              = recipe.text
+            

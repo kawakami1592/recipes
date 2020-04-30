@@ -1,33 +1,16 @@
+foodstuff_array = ['肉','魚','野菜','米','メン','パン','その他']
 dish_array = ['主食','メイン','サイド','スープ','デザート','その他']
-foodstuff_array = [
-                    ['米','メン','パン','その他'],
-                    ['肉','魚','野菜','その他'],
-                    ['肉','魚','野菜','その他'],
-                    ['肉','魚','野菜','その他'],
-                    ['和菓子','洋菓子','その他'],
-                    ['肉','魚','野菜','その他']
-                  ]
 cooking_method_array = ['焼き物','ゆでる','炒め物','揚げ物','煮物','和え物','蒸し物','その他']
 
-
-dish_array.each_with_index do |child, i|
-  child = parent.children.create(name: child)
-  foodstuff_array[i].each do |grandchild|
-    child.children.create(name: grandchild)
+foodstuff_array.each do |foodstuff|
+  parent = Category.create(name: foodstuff)
+  dish_array.each do |dish|
+    child = parent.children.create(name: dish)
+    cooking_method_array.each do |cooking_method|
+      child.children.create(name: cooking_method)
+    end
   end
 end
-
-
-
-# country_array.each do |country|
-#   parent = Category.create(name: country)
-#   dish_array.each_with_index do |child, i|
-#     child = parent.children.create(name: child)
-#     foodstuff_array[i].each do |grandchild|
-#       child.children.create(name: grandchild)
-#     end
-#   end
-# end
 
 
 User.create!(
