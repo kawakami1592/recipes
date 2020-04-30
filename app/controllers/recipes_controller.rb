@@ -1,13 +1,20 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, except:[:index,:show]
+  before_action :authenticate_user!, except:[:index, :show, :list_by_category]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_category_parent, only: [:index, :list_by_category, :new, :edit]
 
   def index
-    @category_parent = Category.where("ancestry is null")
     @woman_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 2").last(5)
     @woman_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 2").last(5)
     @man_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 1").last(5)
     @man_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 1").last(5)
+  end
+
+  def list_by_category
+    @category = Category.find_by(id: params[:id])
+    @recipes = Recipe.joins(:user).where(category_id: @category.indirect_ids)
+    # binding.pry
+
   end
 
   def show
@@ -23,14 +30,12 @@ class RecipesController < ApplicationController
 
     if current_user.sex_id == 1
       @purpose = "作ってあげたい"
-      @category_parent = Category.where("ancestry is null")
       @category_children = Category.find_by(id: 1).children
       @category_grandchildren = Category.find_by(id: 2).children
       #JSで３階層目を実装予定
       # @category_grandchildren = Category.find("#{params[:child_id]}").children
     elsif current_user.sex_id == 2
       @purpose = "作ってほしい"
-      @category_parent = Category.where("ancestry is null")
       @category_children = Category.find_by(id: 1).children
       @category_grandchildren = Category.find_by(id: 2).children
     else
@@ -51,9 +56,7 @@ class RecipesController < ApplicationController
   def edit
     if @recipe.present?
       if @recipe.user_id == current_user.id
-        @category_parent = Category.where("ancestry is null")
         @category_grandchildren = Category.find(@recipe.category_id)
-        # binding.pry
 
 
       else
@@ -96,5 +99,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by(id: params[:id])
   end
 
+  def set_category_parent
+    @category_parent = Category.where("ancestry is null")
+  end
 end
 
