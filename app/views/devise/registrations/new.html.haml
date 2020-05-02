@@ -13,7 +13,7 @@
       .field-email
         .field-email__label
           = f.label :メールアドレス
-          .requir
+          .require
             必須
           = f.email_field :email, {class:'user-input', autofocus: true, required: "required", placeholder: 'PC・携帯どちらでも可'}
 
@@ -22,14 +22,14 @@
           = f.label :パスワード
           .require
             必須
-          = f.password_field :password, {class:'user-input', autocomplete: "off", required: "required", placeholder: '英数字7文字以上'}
+          = f.password_field :password, {class:'user-input', autocomplete: "new-password", required: "required", placeholder: '英数字7文字以上'}
 
       .field-password_confirmation
         .field-password_confirmation__label
           = f.label :パスワード再入力
           .require
             必須
-          = f.password_field :password_confirmation, {class:'user-input', autocomplete: "off", required: "required", placeholder: 'パスワード再入力'}
+          = f.password_field :password_confirmation, {class:'user-input', autocomplete: "new-password", required: "required", placeholder: 'パスワード再入力'}
       
       .field-nickname
         .field-nickname__label

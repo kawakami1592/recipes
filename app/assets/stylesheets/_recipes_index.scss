@@ -40,9 +40,6 @@
         width:10%;
         border-style:none;
         background-color: orange;
-        &:hover {
-          opacity: 0.5;
-        }
       }
     }
     &__categories{
@@ -77,7 +74,15 @@
       text-align: center;
       line-height: 50px;
     }
-    &__easy,&__luxury{
+    &__easy{
+      background-color: rgb(120, 224, 94);
+      width:10%;
+      margin-top: 10px;
+      font-size: 17px;
+      text-align: center;
+    }
+    &__luxury{
+      color:red;
       background-color: rgb(120, 224, 94);
       width:10%;
       margin-top: 10px;
@@ -98,8 +103,8 @@
       }
 
       &__contents{
-        width: 20%;
-        margin: 5px 5px;
+        width: 19%;
+        margin: 0.5%;
         background-color: orange;
         
         &__title{
