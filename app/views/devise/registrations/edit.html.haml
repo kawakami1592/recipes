@@ -1,36 +1,59 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.sign-up
+  = render "shared/header"
+
+  .sign-up__header
+    .sign-up__header__title
+      ユーザー編集
+    = link_to 'マイページへ', user_path(current_user), class: 'new_recipe-return'
+
+  .sign-up__main
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+
+      .field-email
+        .field-email__label
+          = f.label :メールアドレス
+          .require
+            必須
+          = f.email_field :email, {class:'user-input', autofocus: true, autocomplete: "email", required: "required", placeholder: 'PC・携帯どちらでも可'}
+
+      .field-current_password
+        .field-current_password__label
+          = f.label :現在のパスワード
+          .require
+            必須
+          = f.password_field :current_password, {class:'user-input', autocomplete: "current-password", required: "required", placeholder: '英数字7文字以上'}
+
+      .field-password
+        .field-password__label
+          = f.label :新しいパスワード
+          .require
+            必須
+          = f.password_field :password, {class:'user-input', autocomplete: "new-password", required: "required", placeholder: '英数字7文字以上'}
+
+      .field-password_confirmation
+        .field-password_confirmation__label
+          = f.label :パスワード再入力
+          .require
+            必須
+          = f.password_field :password_confirmation, {class:'user-input', autocomplete: "new-password", required: "required", placeholder: 'パスワード再入力'}
+      
+      .field-nickname
+        .field-nickname__label
+          = f.label :ニックネーム
+          .require
+            必須
+          = f.text_field :nickname, {class:'user-input', required: "required", placeholder: '例) まーたろー'}
+      
+      .field-sex
+        .field-sex__label
+          = f.label :性別
+          .require
+            必須
+          .field-sex__label__select
+            = f.collection_select :sex_id, Sex.all, :id, :sex, {prompt: "選択して下さい"}, {class:'user-selec', required: "required"}
+
+      .actions
+        = f.submit '編集する', class: 'sign-up-btn'
+        -# #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+

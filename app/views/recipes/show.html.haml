@@ -5,7 +5,7 @@
     = form_with model: @recipe do |f|
       .show__main__top
         .show__main__top__category
-          @purpose
+          #{@purpose}
         .show__main__top__category
           = @recipe.category.parent.parent.name
         .show__main__top__category

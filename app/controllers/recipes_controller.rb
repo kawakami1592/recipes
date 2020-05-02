@@ -13,12 +13,17 @@ class RecipesController < ApplicationController
   def list_by_category
     @category = Category.find_by(id: params[:id])
     @recipes = Recipe.joins(:user).where(category_id: @category.indirect_ids)
-    # binding.pry
-
+    
   end
 
   def show
-    if @recipe.blank?
+    if @recipe.present? && @recipe.user.sex_id == 1
+      @purpose = "作ってあげたい"
+
+    elsif @recipe.present? && @recipe.user.sex_id == 2
+      @purpose = "作ってほしい"
+
+    else
       redirect_to root_path, notice: "このレシピは削除されています"
     end
   end
@@ -54,14 +59,12 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    if @recipe.present?
-      if @recipe.user_id == current_user.id
-        @category_grandchildren = Category.find(@recipe.category_id)
+    if @recipe.present? && @recipe.user_id == current_user.id
+      @category_grandchildren = Category.find(@recipe.category_id)
 
-
-      else
-        redirect_to root_path,notice: "投稿者ではありません"
-      end
+    elsif @recipe.present? && @recipe.user_id != current_user.id
+      redirect_to root_path,notice: "投稿者ではありません"
+      
     else
       redirect_to root_path,notice: "レシピが見つかりません"
     end

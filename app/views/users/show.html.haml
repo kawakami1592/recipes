@@ -1,5 +1,66 @@
-user_show
-= link_to 'ログアウト', destroy_user_session_path, method: :delete
-= link_to 'トップ画面', root_path, class: 'top-link'
-= link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
+.user_show
+  = render "shared/header"
+
+  .user_show__header
+    .user_show__header__titl
+      %p #{@user.nickname} さんのマイページ
+
+      = link_to 'ログアウト', destroy_user_session_path, method: :delete
+      = link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
+      = link_to 'トップ画面', root_path, class: 'top-link'
+
+
+  .user_show__user_date
+    .user_show__user_date__titl
+      ユーザー情報
+    .user_show__user_date__box
+      .user_show__user_date__box__left
+        .user_show__user_date__box__left__nickname
+          ニックネーム
+        .user_show__user_date__box__left__email
+          メールアドレス
+        .user_show__user_date__box__left__sex
+          性別
+
+      .user_show__user_date__box__right
+        .user_show__user_date__box__right__nickname
+          = @user.nickname
+        .user_show__user_date__box__right__email
+          = @user.email
+        .user_show__user_date__box__right__sex
+          - if @user.sex_id == 1
+            男
+          -else
+            女
+    .user_show__user_date__link
+      = link_to 'ユーザー情報編集', edit_user_registration_path, class: 'edit_user-link'
+
+  .user_show__main
+    .user_show__main__titl
+      マイレシピ
+    .user_show__main__recipes
+      - if @my_recipes.blank?
+        投稿していません
+      - else
+        - @my_recipes.reverse_each do |recipe|
+          .user_show__main__recipes__contents
+            .user_show__main__recipes__contents__tag
+              .user_show__main__recipes__contents__tag__difficulty
+                - if recipe.difficulty_id <= 3
+                  簡単
+                - else
+                  難しい
+              .user_show__main__recipes__contents__tag__want
+                - if recipe.user.sex_id == 1
+                  作ってあげたい
+                - else
+                  作って欲しい
+            .user_show__main__recipes__contents__title
+              = recipe.title
+            .user_show__main__recipes__contents__image
+              = link_to recipe_path(recipe) do
+                = image_tag(recipe.image.url, width: '100%', height: '100%', alt: 'メイン画像')
+            .user_show__main__recipes__contents__text
+              = recipe.text
+
 
