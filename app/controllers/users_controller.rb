@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def show
     @my_recipes = Recipe.where(user_id: params[:id])
     # binding.pry
-    @category_parent = Category.where("ancestry is null")
+    @category_parents = Category.where("ancestry is null")
   end
 
 

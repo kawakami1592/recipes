@@ -23,7 +23,7 @@
     .top__header__categories
       %p 食材選択
       .top__header__categories__box
-        - @category_parent.each do |parent|
+        - @category_parents.each do |parent|
           = link_to "#{parent.name}", list_by_category_recipe_url(parent.id),class: 'top__header__categories__box__list'
   
   .top__main
