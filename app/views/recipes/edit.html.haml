@@ -14,18 +14,18 @@
               #{@purpose}
         .new__main__top__category
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            = f.collection_select :category_id, @category_parent, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
+            = f.collection_select :category_id, @category_parents, :id, :name, {prompt: '食材',selected: @category_parent},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
-        .new__main__top__category
+            
+        .new__main__top__category#select-children
+          = f.label :category_id, for: "category_select_children", class: 'new__main__top__category__label' do
+            = f.collection_select :category_id, @category_children, :id, :name, {selected: @category_child},{ class: 'new__main__top__category__input', id: "category_select_children", required: "required"}
+            %i.fas.fa-chevron-down
+
+        .new__main__top__category#select-grandchildren
           = f.label :category_id, {class: 'new__main__top__category__label'} do
-            -# = f.collection_select :category_id, @category_children, :id, :name, {prompt: 'カテゴリー'},{ class: 'new__main__top__category__input', required: "required"}
+            = f.collection_select :category_id, @category_grandchildren, :id, :name, {prompt: 'メインの材料'},{ class: 'new__main__top__category__input', required: "required"}
             %i.fas.fa-chevron-down
-            -# JSにて実装予定
-        .new__main__top__category
-          = f.label :category_id, {class: 'new__main__top__category__label'} do
-            -# = f.collection_select :category_id, @category_grandchildren, :id, :name, {prompt: 'メインの材料'},{ class: 'new__main__top__category__input', required: "required"}
-            %i.fas.fa-chevron-down
-            -# JSにて実装予定
 
       .new__main__title
         = f.text_field :title, {class:'new__main__title__input', required: "required", placeholder: 'レシピ名'}
@@ -35,9 +35,10 @@
             %i.fas.fa-chevron-down
 
       .new__main__upper-half
-        .new__main__upper-half__left
+        .new__main__upper-half__left#image_input
           = f.label :image, {class: 'new__main__upper-half__left__label'} do
-            = f.file_field :image, {class: 'new__main__upper-half__left__label__input', required: "required", placeholder: '画像を選んでください'}
+            = f.file_field :image, {class: 'new__main__upper-half__left__label__input'}
+            = f.hidden_field :image_cache
             %pre
               %i.fas.fa-camera.fa-lg
               クリックして画像を選んでください
@@ -48,39 +49,44 @@
 
           .new__main__upper-half__right__title
             材料
-          
-          = f.fields_for :ingredients do |i|
-            .new__main__upper-half__right__ingredients
-              .new__main__upper-half__right__ingredients__name
-                = i.text_field :ingredient, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '材料名'}
-              .new__main__upper-half__right__ingredients__quantity
-                = i.text_field :quantity, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '分量'}
+          %ul#ingredient_input
+            = f.fields_for :ingredients do |i|
+              %li.new__main__upper-half__right__ingredients#ingredient_list_0{data: {ingredients_list_id: i.index}}
+                .new__main__upper-half__right__ingredients__name
+                  = i.text_field :ingredient, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '材料名'}
+                .new__main__upper-half__right__ingredients__quantity
+                  = i.text_field :quantity, {class:'new__main__upper-half__right__ingredients__name__input', required: "required", placeholder: '分量'}
+                .new__main__upper-half__right__ingredients__delete
+                  %a.new__main__upper-half__right__ingredients__delete__button{data: {ingredients_delete_id: i.index}}
+                    %i.fas.fa-trash-alt
+              = i.check_box :_destroy, data:{ingredients_list_id: i.index}, class: 'ingredien-hidden-destroy'
 
-
-          %button{type: 'button', class: 'new__main__upper-half__right__btn'} 追加する
+          %button{type: 'button', class: 'new__main__upper-half__right__btn', id:'add_ingredient'} 追加する
 
       .new__main__maked
         作り方
-      .new__main__makedbox
+
+      %ul.new__main__makedbox#maked_input
         = f.fields_for :makeds do |m|
-          .new__main__makedbox__init
-            .new__main__makedbox__init__image
-              = m.label :image, {class: 'new__main__makedbox__init__image__label'} do
-                = m.file_field :image, {class:'new__main__makedbox__init__image__label__input', placeholder: '画像を選んでください'}
+          %li.new__main__makedbox__list#makedbox_list_0{data: {maked_list_id: m.index}}
+            .new__main__makedbox__list__image#maked_image_0{data: {maked_id: m.index}}
+              = m.label :image, {class: 'new__main__makedbox__list__image__label'} do
+                = m.file_field :image, {class:'new__main__makedbox__list__image__label__input', placeholder: '画像を選んでください'}
                 %pre
                   %i.fas.fa-camera.fa-lg
                   画像を選んでください
-            .new__main__makedbox__init__text
-              = m.text_area :text, {class:'new__main__makedbox__init__text__input', placeholder: '作り方を入力してください'}
-
-
-
-
-        %button{type: 'button', class: 'new__main__makedbox__init__btn'} 追加する
+              -# = m.check_box :_destroy, data:{ingredients_list_id: m.index}, class: 'hidden-destroy'
+            .new__main__makedbox__list__text
+              = m.text_area :text, {class:'new__main__makedbox__list__text__input', placeholder: '作り方を入力してください'}
+            .new__main__makedbox__list__delete
+              %a.new__main__makedbox__list__delete__button{data: {makedbox_delete_id: m.index}}
+                %i.fas.fa-trash-alt
+          = m.check_box :_destroy, data:{ingredients_list_id: m.index}, class: 'hidden-destroy'
+        %button{type: 'button', class: 'new__main__makedbox__btn', id:'add_maked'} 追加する
 
       .new__main__point
         = f.text_area :point, {class: 'new__main__point__input', maxlength: '150', placeholder: 'コツ、ポイント'}
 
       .new__main__submit
         = f.submit '編集する', {class: 'new__main__submit__btn'}
-        = link_to 'もどる', root_path, class: 'new__main__submit__return'
+        = link_to 'もどる', recipe_path(@recipe), class: 'new__main__submit__return'

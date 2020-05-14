@@ -33,7 +33,6 @@
           line-height: 35px;
           width:100%;
           border: 1px solid #ccc;
-          
           padding-left: 10px;
         }
         .fas.fa-chevron-down{
@@ -54,13 +53,11 @@
       &__input{
         height:50px;
         width:80%;
-        
         padding-left: 10px;
       }
       &__difficulty{
         height:50px;
         width:20%;
-        
         position: relative;
         &__input{
           background-color: #fff;
@@ -70,7 +67,6 @@
           padding-left: 10px;
           height:50px;
           width:100%;
-          
         }
         .fas.fa-chevron-down{
           pointer-events: none;
@@ -113,6 +109,26 @@
             opacity: 0.5;
           }
         }
+        &__figure{
+          background-color: rgb(246, 220, 178);
+          height: 100%;
+          border-width: 1px;
+          border-style: dashed;
+          border-color: rgb(204, 204, 204);
+          align-items: center;
+          position: relative;
+          img{
+            object-fit: contain;
+          }
+
+          &__button{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            cursor: pointer;
+          }
+        }
       }
       &__right{
         height:100%;
@@ -125,7 +141,6 @@
           &__input{
             height:100%;
             width:100%;
-            
             padding-left: 10px;
           }
         }
@@ -145,7 +160,6 @@
             width:70%;
             &__input{
               width:100%;
-              
               padding-left: 10px;
             }
           }
@@ -154,9 +168,14 @@
             width:30%;
             &__input{
               width:100%;
-              
             }
           }
+          #quantity_first{
+            margin-right: 14px;
+          }
+        }
+        .ingredien-hidden-destroy{
+          display: none;
         }
       }
     }
@@ -170,10 +189,12 @@
       height:100%;
       width:100%;
       display: flex;
-      &__init{
+      flex-wrap: wrap;
+      &__list{
         height:100%;
-        width:20%;
+        width: 20%;
         padding-right: 5px;
+        position: relative;
         &__image{
           height:100px;
           width:100%;
@@ -190,12 +211,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            
             &__input{
               display: none;
             }
             &:hover {
               opacity: 0.5;
+            }
+          }
+          &__figure{
+            background-color: rgb(246, 220, 178);
+            height: 100%;
+            border-width: 1px;
+            border-style: dashed;
+            border-color: rgb(204, 204, 204);
+            align-items: center;
+            position: relative;
+            img{
+              object-fit: contain;
+            }
+  
+            &__button{
+              position: absolute;
+              right: 0;
+              bottom: 0;
+              background-color: #fff;
+              cursor: pointer;
             }
           }
         }
@@ -208,6 +248,14 @@
             
           }
         }
+        &__delete{
+          position: absolute;
+          bottom: 0;
+          right: 10px;
+        }
+      }
+      .hidden-destroy{
+        display: none;
       }
     }
     &__point{
@@ -215,7 +263,6 @@
       &__input{
         height:70px;
         width:100%;
-        
       }
     }
     &__submit{

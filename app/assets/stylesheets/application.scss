@@ -16,9 +16,14 @@
 @import "./reset";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import "recipes_index";
-@import "registrations_new";
 @import "header";
+@import "list_by_category";
+@import "recipes_index";
+@import "recipes_new";
+@import "recipes_show";
+@import "users";
+@import "users_show";
+
 
 *{
   box-sizing: border-box;

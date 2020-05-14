@@ -13,16 +13,11 @@ class RecipesController < ApplicationController
   def list_by_category
     @category = Category.find_by(id: params[:id])
     @recipes = Recipe.joins(:user).where(category_id: @category.indirect_ids)
-    
   end
 
   def show
-    if @recipe.present? && @recipe.user.sex_id == 1
-      @purpose = "作ってあげたい"
-
-    elsif @recipe.present? && @recipe.user.sex_id == 2
-      @purpose = "作ってほしい"
-
+    if @recipe.present? 
+      @recipe.user.sex_id == 1 ? @purpose = "作ってあげたい" : @purpose = "作ってほしい"
     else
       redirect_to root_path, notice: "このレシピは削除されています"
     end
@@ -32,21 +27,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
     @recipe.ingredients.new
     @recipe.makeds.new
-
-    if current_user.sex_id == 1
-      @purpose = "作ってあげたい"
-      @category_children = Category.find_by(id: 1).children
-      @category_grandchildren = Category.find_by(id: 2).children
-      #JSで３階層目を実装予定
-      # @category_grandchildren = Category.find("#{params[:child_id]}").children
-    elsif current_user.sex_id == 2
-      @purpose = "作ってほしい"
-      @category_children = Category.find_by(id: 1).children
-      @category_grandchildren = Category.find_by(id: 2).children
-    else
-      redirect_to root_path, notice: "ログインしてください"
-    end
-
+    current_user.sex_id == 1 ? @purpose = "作ってあげたい" : @purpose = "作ってほしい"
   end
 
   def create
@@ -60,35 +41,72 @@ class RecipesController < ApplicationController
 
   def edit
     if @recipe.present? && @recipe.user_id == current_user.id
-      @category_grandchildren = Category.find(@recipe.category_id)
+      @recipe.user.sex_id == 1 ? @purpose = "作ってあげたい" : @purpose = "作ってほしい"
+      
+      # ⬇︎単体のカテゴリ⬇︎
+      @category_grandchild = Category.find(@recipe.category_id)
+      @category_child = @category_grandchild.parent.id
+      @category_parent = @category_grandchild.parent.parent.id
+      # ⬇︎カテゴリ配列⬇︎
+      @category_children = @category_grandchild.parent.siblings
+      @category_grandchildren= Category.find(@recipe.category_id).siblings
+      # ⬇︎メイン画像⬇︎
+      @recipe.image.cache! unless @recipe.image.blank?
+      @image = @recipe.image
+      gon.image = @recipe.image
+      # ⬇︎ingredients配列⬇︎
+      gon.ingredients = Ingredient.where(recipe_id: @recipe.id)
+      # ⬇︎maked画像⬇︎
+      @makeds = Maked.where(recipe_id: @recipe.id)
+      @makeds_length = Maked.where(recipe_id: @recipe.id).length
+      gon.makeds = Maked.where(recipe_id: @recipe.id)
+      # binding.pry
 
     elsif @recipe.present? && @recipe.user_id != current_user.id
       redirect_to root_path,notice: "投稿者ではありません"
-      
     else
       redirect_to root_path,notice: "レシピが見つかりません"
     end
   end
 
-  def update
-    @recipe = Recipe.new(recipe_params)
-    if @recipe.save
-      redirect_to root_path, notice: "編集できました"
-    else
-      render :new, notice: "編集できませんでした"
-    end
+  def category_children
+    @category_children = Category.find("#{params[:parent_id]}").children
+    #親カテゴリーに紐付く子カテゴリーを取得
   end
 
-  def destroy
-    if recipe.present?
-      if recipe.destroy
-        redirect_to root_path, notice: "削除しました"
+  def category_grandchildren
+    @category_grandchildren = Category.find("#{params[:child_id]}").children
+    #子カテゴリーに紐付く孫カテゴリーの配列を取得
+  end
+
+  def update
+    if @recipe.present?
+      if @recipe.update(update_recipe_params)
+        redirect_to recipe_path(@recipe), notice: "編集できました"
       else
-        redirect_to root_path, notice: "削除に失敗しました"
+        render :edit, notice: "編集できませんでした"
       end
     else
       redirect_to root_path, notice: "レシピが見つかりません"
     end
+  end
+
+  def destroy
+
+    unless @recipe.destroy
+      redirect_to recipe_path(@recipe)
+    end
+
+
+  #   if recipe.present?
+  #     if recipe.destroy
+  #       redirect_to root_path, notice: "削除しました"
+  #     else
+  #       redirect_to root_path, notice: "削除に失敗しました"
+  #     end
+  #   else
+  #     redirect_to root_path, notice: "レシピが見つかりません"
+  #   end
   end
 
 
@@ -98,12 +116,17 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:title, :category_id, :text, :image, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity], makeds_attributes: [:text, :image]).merge(user_id: current_user.id)
   end
 
+  def update_recipe_params
+    params.require(:recipe).permit(:title, :category_id, :text, :image,:image_cache, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity, :_destroy, :id], makeds_attributes: [:text, :image, :_destroy, :id]).merge(user_id: current_user.id)
+    # binding.pry
+  end
+
   def set_recipe
     @recipe = Recipe.find_by(id: params[:id])
   end
 
   def set_category_parent
-    @category_parent = Category.where("ancestry is null")
+    @category_parents = Category.where("ancestry is null")
   end
 end
 
