@@ -51,35 +51,16 @@ class RecipesController < ApplicationController
       @category_children = @category_grandchild.parent.siblings
       @category_grandchildren= Category.find(@recipe.category_id).siblings
       # ⬇︎メイン画像⬇︎
+      @recipe.image.cache! unless @recipe.image.blank?
       @image = @recipe.image
       gon.image = @recipe.image
+      # ⬇︎ingredients配列⬇︎
+      gon.ingredients = Ingredient.where(recipe_id: @recipe.id)
       # ⬇︎maked画像⬇︎
       @makeds = Maked.where(recipe_id: @recipe.id)
       @makeds_length = Maked.where(recipe_id: @recipe.id).length
-
-      # @makeds.each do |maked|
-      #   @maked_image = maked.image.url
-      # end
-      
       gon.makeds = Maked.where(recipe_id: @recipe.id)
-
       # binding.pry
-
-
-
-      # @image = @item.images.order(id: "ASC")   each_with_index
-      # @image_id = @item.images_blob_ids.sort_by {|a| a}
-      # gon.item = @item
-      # gon.imageids = @image_id
-
-
-
-
-
-
-
-
-
 
     elsif @recipe.present? && @recipe.user_id != current_user.id
       redirect_to root_path,notice: "投稿者ではありません"
@@ -111,15 +92,21 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    if recipe.present?
-      if recipe.destroy
-        redirect_to root_path, notice: "削除しました"
-      else
-        redirect_to root_path, notice: "削除に失敗しました"
-      end
-    else
-      redirect_to root_path, notice: "レシピが見つかりません"
+
+    unless @recipe.destroy
+      redirect_to recipe_path(@recipe)
     end
+
+
+  #   if recipe.present?
+  #     if recipe.destroy
+  #       redirect_to root_path, notice: "削除しました"
+  #     else
+  #       redirect_to root_path, notice: "削除に失敗しました"
+  #     end
+  #   else
+  #     redirect_to root_path, notice: "レシピが見つかりません"
+  #   end
   end
 
 
@@ -130,7 +117,8 @@ class RecipesController < ApplicationController
   end
 
   def update_recipe_params
-    params.require(:recipe).permit(:title, :category_id, :text, :image, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity, :_destroy, :id], makeds_attributes: [:text, :image, :_destroy, :id]).merge(user_id: current_user.id)
+    params.require(:recipe).permit(:title, :category_id, :text, :image,:image_cache, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity, :_destroy, :id], makeds_attributes: [:text, :image, :_destroy, :id]).merge(user_id: current_user.id)
+    # binding.pry
   end
 
   def set_recipe

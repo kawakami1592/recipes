@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  $('form').find('input textarea select').removeAttr('required max min maxlength pattern');
+  // $('form').find('file_field').removeAttr('required max min maxlength pattern');
   $(function(){
     // カテゴリーセレクトボックスのオプションを作成
     function categoryOption(category){
@@ -88,7 +88,6 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
-
   // メイン画像が選択された時プレビュー表示
   $('#image_input').on('change', function(e){
 
@@ -153,6 +152,11 @@ $(document).on('turbolinks:load', function() {
   $(document).on('click', '.new__main__upper-half__right__ingredients__delete__button', function(){
     let ingredientsDeleteId = $(this).data('ingredients-delete-id');
     $(`#ingredient_list_${ingredientsDeleteId}`).empty();
+
+    const hiddenCheck = $(`input[data-ingredients-list-id="${ingredientsDeleteId}"].ingredien-hidden-destroy`);
+  
+    // もしチェックボックスが存在すればチェックを入れる
+    if (hiddenCheck) hiddenCheck.prop('checked', true);
   });
 
 
@@ -181,8 +185,11 @@ $(document).on('turbolinks:load', function() {
   $(document).on('click', '.new__main__makedbox__list__delete__button', function(){
     let makedboxDeleteId = $(this).data('makedbox-delete-id');
     $(`#makedbox_list_${makedboxDeleteId}`).remove();
+
+    const hiddenCheck = $(`input[data-ingredients-list-id="${makedboxDeleteId}"].hidden-destroy`);
+    // もしチェックボックスが存在すればチェックを入れる
+    if (hiddenCheck) hiddenCheck.prop('checked', true);
   });
-  
 
   // 作り方画像が選択された時プレビュー表示
   $(document).off('change', '.new__main__makedbox__list__image');
@@ -229,10 +236,6 @@ $(document).on('turbolinks:load', function() {
   });
 
 
-
-
-
-
   // 編集ページ読み込み時に発火
   var result = location.pathname.indexOf( 'edit' );
   // URLでパスの部分を取得・設定する
@@ -245,32 +248,26 @@ $(document).on('turbolinks:load', function() {
         </div>
       </div>`);
     $("#image_input>label").css('display','none');
-    // 入力されたlabelを非表示にする
 
-
-
-
+    $.each(gon.ingredients,function(index, maked) {
+      $('.new__main__upper-half__right__ingredients').eq(index).attr('id', `ingredient_list_${index}`);
+    });
 
     $.each(gon.makeds, function(index, maked) {
       if(maked.image.url == null) {
         $('.new__main__makedbox__list__image').eq(index).attr('data-maked-id', `${index}`);
         $('.new__main__makedbox__list__image').eq(index).attr('id', `maked_image_${index}`);
       }else{
+        $('.new__main__makedbox__list').eq(index).attr('id', `makedbox_list_${index}`);
         $('.new__main__makedbox__list__image').eq(index).attr('data-maked-id', `${index}`);
         $('.new__main__makedbox__list__image').eq(index).attr('id', `maked_image_${index}`);
         $(`.new__main__makedbox__list__image`).eq(index).append(
           `<div class="new__main__makedbox__list__image__figure">
             <img src="${maked.image.url}" title="${maked.image}" width="100%", height="100%", alt="参考画像")>
-            <div class="new__main__makedbox__list__image__figure__button">
-              <a class="new__main__makedbox__list__image__figure__button__delete" data-image-delete-id="${index}">削除</a>
-            </div>
           </div>`);
           $(`[for='recipe_makeds_attributes_${index}_image']`).css('display','none');
       };
     });
-    
-
   };
-
 
 });
