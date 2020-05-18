@@ -14,9 +14,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @my_recipes = Recipe.where(user_id: params[:id])
-    # binding.pry
-    @category_parents = Category.where("ancestry is null")
+    if @user.present?
+      @my_recipes = Recipe.where(user_id: params[:id])
+      @my_likes = Like.where(user_id: params[:id])
+      @recipes = Recipe.all
+      # binding.pry
+    else
+      redirect_to root_path, notice: "ユーザーが登録されていません"
+    end
   end
 
 

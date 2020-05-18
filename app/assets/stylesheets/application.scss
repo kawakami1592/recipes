@@ -23,7 +23,7 @@
 @import "recipes_show";
 @import "users";
 @import "users_show";
-
+@import "likes";
 
 *{
   box-sizing: border-box;
@@ -36,9 +36,15 @@ a{
   &:hover {
     opacity: 0.5;
   }
-  // color: inherit;
 }
 body{
   background-color: #f1cd93;
   min-height: 100vh;
+}
+.links{
+  width:12%;
+  display: inline-block;
+  font-size:17px;
+  background-color: orange;
+  text-align: center;
 }

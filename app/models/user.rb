@@ -4,7 +4,9 @@ class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :sex
 
-  has_many :recipes
+  has_many :recipes,dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :recipes, through: :likes
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

@@ -5,9 +5,9 @@
     .user_show__header__titl
       %p #{@user.nickname} さんのマイページ
 
-      = link_to 'ログアウト', destroy_user_session_path, method: :delete
-      = link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
-      = link_to 'トップ画面', root_path, class: 'top-link'
+      = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'links'
+      = link_to '投稿する', new_recipe_path, class: 'links'
+      = link_to 'トップ画面', root_path, class: 'links'
 
 
   .user_show__user_date
@@ -63,4 +63,30 @@
             .user_show__main__recipes__contents__text
               = recipe.text
 
-
+  .user_show__main
+    .user_show__main__titl
+      イイねしたレシピ
+    .user_show__main__likes
+      - if @my_likes.blank?
+        いいねしていません
+      - else
+        - @my_likes.reverse_each do |my_like|
+          .user_show__main__likes__contents
+            .user_show__main__likes__contents__tag
+              .user_show__main__likes__contents__tag__difficulty
+                - if @recipes.find(my_like.recipe_id).difficulty_id <= 3
+                  簡単
+                - else
+                  難しい
+              .user_show__main__likes__contents__tag__want
+                - if @recipes.find(my_like.recipe_id).user.sex_id == 1
+                  作ってあげたい
+                - else
+                  作って欲しい
+            .user_show__main__likes__contents__title
+              = @recipes.find(my_like.recipe_id).title
+            .user_show__main__likes__contents__image
+              = link_to recipe_path(@recipes.find(my_like.recipe_id)) do
+                = image_tag(@recipes.find(my_like.recipe_id).image.url, width: '100%', height: '100%', alt: 'メイン画像')
+            .user_show__main__likes__contents__text
+              = @recipes.find(my_like.recipe_id).text
