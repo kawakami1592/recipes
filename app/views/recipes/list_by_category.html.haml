@@ -5,11 +5,11 @@
     .category__header__titl
       %p カテゴリー別一覧
 
-      = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
-      = link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
-      = link_to 'トップページ', root_path, class: 'top-link'
+      = link_to 'ログイン画面へ', new_user_session_path, class: 'links'
+      = link_to '投稿する', new_recipe_path, class: 'links'
+      = link_to 'トップページ', root_path, class: 'links'
       - if user_signed_in?
-        = link_to 'マイページへ', user_path(current_user), class: 'new_recipe-link'
+        = link_to 'マイページへ', user_path(current_user), class: 'links'
 
     .category__header__search
       = form_with url: 'root' do |f|

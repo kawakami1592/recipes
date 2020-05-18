@@ -7,11 +7,11 @@
       %p そんな食い違いを解消しませんか？
       %p 男性諸君！女性に喜ばれる料理を作ろうじゃないか！！
 
-      = link_to 'ログイン画面へ', new_user_session_path, class: 'sign-up-link'
-      = link_to "ユーザー登録へ", new_user_registration_path, class: 'sign-up-link'
-      = link_to '投稿する', new_recipe_path, class: 'new_recipe-link'
+      = link_to 'ログイン画面へ', new_user_session_path, class: 'links'
+      = link_to "ユーザー登録へ", new_user_registration_path, class: 'links'
+      = link_to '投稿する', new_recipe_path, class: 'links'
       - if user_signed_in?
-        = link_to 'マイページへ', user_path(current_user), class: 'new_recipe-link'
+        = link_to 'マイページへ', user_path(current_user), class: 'links'
 
     .top__header__search
       = form_with url: 'root' do |f|
@@ -98,4 +98,3 @@
                 = image_tag(recipe.image.url, width: '100%', height: '100%', alt: 'メイン画像')
             .top__main__recipes__contents__text
               = recipe.text
-

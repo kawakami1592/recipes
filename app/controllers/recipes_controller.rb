@@ -8,6 +8,7 @@ class RecipesController < ApplicationController
     @woman_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 2").last(5)
     @man_easy = Recipe.joins(:user).where(difficulty_id: [1,2,3]).where("users.sex_id = 1").last(5)
     @man_luxury = Recipe.joins(:user).where(difficulty_id: [4,5]).where("users.sex_id = 1").last(5)
+    # binding.pry
   end
 
   def list_by_category
@@ -16,8 +17,11 @@ class RecipesController < ApplicationController
   end
 
   def show
-    if @recipe.present? 
+    if @recipe.present?
       @recipe.user.sex_id == 1 ? @purpose = "作ってあげたい" : @purpose = "作ってほしい"
+      @man_like_count = Like.joins(:user).where(recipe_id: @recipe.id).where("users.sex_id = 1").count
+      @woman_like_count = Like.joins(:user).where(recipe_id: @recipe.id).where("users.sex_id = 2").count
+     
     else
       redirect_to root_path, notice: "このレシピは削除されています"
     end
@@ -51,7 +55,6 @@ class RecipesController < ApplicationController
       @category_children = @category_grandchild.parent.siblings
       @category_grandchildren= Category.find(@recipe.category_id).siblings
       # ⬇︎メイン画像⬇︎
-      @recipe.image.cache! unless @recipe.image.blank?
       @image = @recipe.image
       gon.image = @recipe.image
       # ⬇︎ingredients配列⬇︎
@@ -118,7 +121,6 @@ class RecipesController < ApplicationController
 
   def update_recipe_params
     params.require(:recipe).permit(:title, :category_id, :text, :image,:image_cache, :point, :difficulty_id, ingredients_attributes: [:ingredient, :quantity, :_destroy, :id], makeds_attributes: [:text, :image, :_destroy, :id]).merge(user_id: current_user.id)
-    # binding.pry
   end
 
   def set_recipe

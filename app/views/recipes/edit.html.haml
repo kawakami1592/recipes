@@ -3,7 +3,7 @@
 
   .new__header
     .new__header__title
-      レシピを教えてください
+      レシピを編集できます
 
   .new__main
     = form_with model: @recipe do |f|
@@ -38,7 +38,6 @@
         .new__main__upper-half__left#image_input
           = f.label :image, {class: 'new__main__upper-half__left__label'} do
             = f.file_field :image, {class: 'new__main__upper-half__left__label__input'}
-            = f.hidden_field :image_cache
             %pre
               %i.fas.fa-camera.fa-lg
               クリックして画像を選んでください

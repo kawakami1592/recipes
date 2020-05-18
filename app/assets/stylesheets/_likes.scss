@@ -1,0 +1,19 @@
+.iine_btn{
+  background-color: rgb(120, 224, 94);
+  width:100%;
+  display: inline-block;
+  text-align: center;
+}
+.like_count{
+  display: flex;
+  &__woman{
+  background-color: rgb(255, 80, 80);
+  width:50%;
+  padding-left: 10px;
+  }
+  &__man{
+  background-color: rgb(70, 70, 255);
+  width:50%;
+  padding-left: 10px;
+  }
+}

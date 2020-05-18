@@ -18,6 +18,14 @@
     margin: 0 auto;
     padding: 10px;
 
+    &__like{
+      display: flex;
+      justify-content: flex-end;
+      &__content{
+        width:20%;
+      }
+    }
+
     &__top{
       display: flex;
       &__category{

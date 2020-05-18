@@ -2,55 +2,57 @@
   = render "shared/header"
 
   .show__main
-    = form_with model: @recipe do |f|
-      .show__main__top
-        .show__main__top__category
-          #{@purpose}
-        .show__main__top__category
-          = @recipe.category.parent.parent.name
-        .show__main__top__category
-          = @recipe.category.parent.name
-        .show__main__top__category
-          = @recipe.category.name
+    .show__main__like
+      %div.show__main__like__content{id: "like-#{@recipe.id}"}
+        = render 'likes/like', { recipe: @recipe }
+    .show__main__top
+      .show__main__top__category
+        #{@purpose}
+      .show__main__top__category
+        = @recipe.category.parent.parent.name
+      .show__main__top__category
+        = @recipe.category.parent.name
+      .show__main__top__category
+        = @recipe.category.name
 
-      .show__main__title
-        .show__main__title__name
-          = @recipe.title
-        .show__main__title__difficulty
-          = @recipe.difficulty.difficulty
+    .show__main__title
+      .show__main__title__name
+        = @recipe.title
+      .show__main__title__difficulty
+        = @recipe.difficulty.difficulty
 
-      .show__main__upper-half
-        .show__main__upper-half__left
-          = image_tag(@recipe.image.url, width: '100%', height: '100%', alt:'画像')
+    .show__main__upper-half
+      .show__main__upper-half__left
+        = image_tag(@recipe.image.url, width: '100%', height: '100%', alt:'画像')
 
-        .show__main__upper-half__right
-          .show__main__upper-half__right__text
-            = @recipe.text
+      .show__main__upper-half__right
+        .show__main__upper-half__right__text
+          = @recipe.text
 
-          .show__main__upper-half__right__title
-            材料
-          - @recipe.ingredients.each do |ingredient|
-            .show__main__upper-half__right__ingredients
-              .show__main__upper-half__right__ingredients__name
-                = ingredient.ingredient
-              .show__main__upper-half__right__ingredients__quantity
-                = ingredient.quantity
+        .show__main__upper-half__right__title
+          材料
+        - @recipe.ingredients.each do |ingredient|
+          .show__main__upper-half__right__ingredients
+            .show__main__upper-half__right__ingredients__name
+              = ingredient.ingredient
+            .show__main__upper-half__right__ingredients__quantity
+              = ingredient.quantity
 
-      .show__main__maked
-        作り方
-      .show__main__makedbox
-        - @recipe.makeds.each do |maked|
-          .show__main__makedbox__init
-            .show__main__makedbox__init__image
-              = image_tag(maked.image.url, width: '100%', height: '100%', alt:'画像') if maked.image.present?
-            .show__main__makedbox__init__text
-              = maked.text
+    .show__main__maked
+      作り方
+    .show__main__makedbox
+      - @recipe.makeds.each do |maked|
+        .show__main__makedbox__init
+          .show__main__makedbox__init__image
+            = image_tag(maked.image.url, width: '100%', height: '100%', alt:'画像') if maked.image.present?
+          .show__main__makedbox__init__text
+            = maked.text
 
-      .show__main__points
-        コツ・ポイント
-      .show__main__point
-        = @recipe.point
+    .show__main__points
+      コツ・ポイント
+    .show__main__point
+      = @recipe.point
 
-      .show__main__btn
-        = link_to '編集', edit_recipe_path, class: 'show__main__btn__edit' if user_signed_in? && @recipe.user_id == current_user.id
-        = link_to 'もどる', root_path, class: 'show__main__btn__return'
+    .show__main__btn
+      = link_to '編集', edit_recipe_path, class: 'show__main__btn__edit' if user_signed_in? && @recipe.user_id == current_user.id
+      = link_to 'もどる', root_path, class: 'show__main__btn__return'

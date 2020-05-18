@@ -1,0 +1,30 @@
+- if user_signed_in?
+  - if recipe.likes.find_by(user_id: current_user.id)
+    = link_to recipe_like_path(recipe.id,current_user.id), method: :delete, remote: true, class: 'iine_btn' do
+      %i.far.fa-thumbs-up　いいねを止める
+    .like_count
+      .like_count__woman
+        %p 女性から
+        %i.far.fa-thumbs-up #{@woman_like_count}
+      .like_count__man
+        %p 男性から
+        %i.far.fa-thumbs-up #{@man_like_count}
+    
+  - else
+    = link_to recipe_likes_path(recipe.id), method: :post, remote: true, class: 'iine_btn' do
+      %i.far.fa-thumbs-up　いいね！
+    .like_count
+      .like_count__woman
+        %p 女性から
+        %i.far.fa-thumbs-up #{@woman_like_count}
+      .like_count__man
+        %p 男性から
+        %i.far.fa-thumbs-up #{@man_like_count}
+- else
+  .like_count
+    .like_count__woman
+      %p 女性から
+      %i.far.fa-thumbs-up #{@woman_like_count}
+    .like_count__man
+      %p 男性から
+      %i.far.fa-thumbs-up #{@man_like_count}

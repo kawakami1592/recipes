@@ -1,5 +1,4 @@
 $(document).on('turbolinks:load', function() {
-  // $('form').find('file_field').removeAttr('required max min maxlength pattern');
   $(function(){
     // カテゴリーセレクトボックスのオプションを作成
     function categoryOption(category){

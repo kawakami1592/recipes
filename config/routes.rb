@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update, :show]
 
   resources :recipes do
+
     collection do
       # カテゴリーの階層分けのルート
       get 'category_children', defaults: { format: 'json' }
@@ -13,8 +14,10 @@ Rails.application.routes.draw do
     member do
       get 'list_by_category'
     end
+
+    resources :likes, only: [:create, :destroy]
   end
 
   resources :ingredients, only: [:destroy]
-
+  
 end
