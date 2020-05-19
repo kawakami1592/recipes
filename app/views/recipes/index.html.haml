@@ -20,14 +20,14 @@
           %i.fas.fa-search
         = f.submit '探す', class: 'top__header__search__submit'
 
-    .top__header__categories
-      %p 食材選択
+    %h3.top__header__categories
+       食材選択
       .top__header__categories__box
         - @category_parents.each do |parent|
           = link_to "#{parent.name}", list_by_category_recipe_url(parent.id),class: 'top__header__categories__box__list'
   
   .top__main
-    .top__main__woman
+    %h2.top__main__woman
       女性が作ってほしい料理
     .top__main__easy
       簡単
@@ -63,7 +63,7 @@
             .top__main__recipes__contents__text
               = recipe.text
 
-    .top__main__man
+    %h2.top__main__man
       男性が作ってあげたい料理
     .top__main__easy
       簡単

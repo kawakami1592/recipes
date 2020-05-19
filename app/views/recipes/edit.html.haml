@@ -2,7 +2,7 @@
   = render "shared/header"
 
   .new__header
-    .new__header__title
+    %h2.new__header__title
       レシピを編集できます
 
   .new__main
@@ -41,12 +41,13 @@
             %pre
               %i.fas.fa-camera.fa-lg
               クリックして画像を選んでください
+              
 
         .new__main__upper-half__right
           .new__main__upper-half__right__text
             = f.text_area :text, {class: 'new__main__upper-half__right__text__input', required: "required",rows: '５', maxlength: '100', placeholder: 'レシピの紹介文'}
 
-          .new__main__upper-half__right__title
+          %h3.new__main__upper-half__right__title
             材料
           %ul#ingredient_input
             = f.fields_for :ingredients do |i|
@@ -62,7 +63,7 @@
 
           %button{type: 'button', class: 'new__main__upper-half__right__btn', id:'add_ingredient'} 追加する
 
-      .new__main__maked
+      %h2.new__main__maked
         作り方
 
       %ul.new__main__makedbox#maked_input

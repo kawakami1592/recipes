@@ -108,6 +108,11 @@
           &:hover {
             opacity: 0.5;
           }
+          .error-image{
+            color: red;
+            font-size: 20px;
+            font-weight: bold;
+          }
         }
         &__figure{
           background-color: rgb(246, 220, 178);

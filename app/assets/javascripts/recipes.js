@@ -234,6 +234,17 @@ $(document).on('turbolinks:load', function() {
     </label>`);
   });
 
+  //送信しようとした時
+  $('form').on('submit',function(){
+    let imageLength = $('#image_input').children('img').length;
+    console.log(imageLength)
+    if(imageLength ==''){
+      $('body, html').animate({ scrollTop: 0 }, 500);
+      $('.error-image').append('画像がありません');
+    }else{
+      return true;
+    }
+  });
 
   // 編集ページ読み込み時に発火
   var result = location.pathname.indexOf( 'edit' );

@@ -29,7 +29,7 @@
         .show__main__upper-half__right__text
           = @recipe.text
 
-        .show__main__upper-half__right__title
+        %h2.show__main__upper-half__right__title
           材料
         - @recipe.ingredients.each do |ingredient|
           .show__main__upper-half__right__ingredients
@@ -38,7 +38,7 @@
             .show__main__upper-half__right__ingredients__quantity
               = ingredient.quantity
 
-    .show__main__maked
+    %h2.show__main__maked
       作り方
     .show__main__makedbox
       - @recipe.makeds.each do |maked|
@@ -48,7 +48,7 @@
           .show__main__makedbox__init__text
             = maked.text
 
-    .show__main__points
+    %h2.show__main__points
       コツ・ポイント
     .show__main__point
       = @recipe.point

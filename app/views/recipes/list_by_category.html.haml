@@ -2,8 +2,8 @@
   = render "shared/header"
 
   .category__header
-    .category__header__titl
-      %p カテゴリー別一覧
+    %h2.category__header__titl
+      カテゴリー別一覧
 
       = link_to 'ログイン画面へ', new_user_session_path, class: 'links'
       = link_to '投稿する', new_recipe_path, class: 'links'
@@ -18,15 +18,15 @@
           %i.fas.fa-search
         = f.submit '探す', class: 'category__header__search__submit'
 
-    .category__header__categories
-      %p 食材選択
+    %h3.category__header__categories
+      食材選択
       .category__header__categories__box
         - @category_parents.each do |parent|
           = link_to "#{parent.name}", list_by_category_recipe_url(parent.id),class: 'category__header__categories__box__list'
 
 
   .category__main
-    .category__main__titl
+    %h2.category__main__titl
       #{@category.name}を使用したレシピ
     .category__main__recipes
       - if @recipes.blank?

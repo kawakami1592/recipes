@@ -15,7 +15,7 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :makeds, allow_destroy: true
   mount_uploader :image, ImageUploader
 
-  validates :titl, :user_id, :category_id, :text, :image, presence: true
+  validates :title, :user_id, :category_id, :text, :image, presence: true
   validates :text, length: { maximum: 200 }
 
 end
