@@ -30,6 +30,7 @@
 
 ## Usersテーブル
 |Column   | Type       | Options                  |
+|---------|------------|--------------------------|
 |email    | string     | null: false, default: "" |
 |password | string     | null: false, default: "" |
 |nickname | string     | null: false              |
