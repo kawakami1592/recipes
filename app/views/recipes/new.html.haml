@@ -34,7 +34,7 @@
 
         .new__main__upper-half__right
           .new__main__upper-half__right__text
-            = f.text_area :text, {class: 'new__main__upper-half__right__text__input', required: "required",rows: '５', maxlength: '100', placeholder: 'レシピの紹介文'}
+            = f.text_area :text, {class: 'new__main__upper-half__right__text__input', required: "required",rows: '５', maxlength: '200', placeholder: 'レシピの紹介文'}
 
           .new__main__upper-half__right__title
             材料
@@ -59,12 +59,12 @@
                   %i.fas.fa-camera.fa-lg
                   画像を選んでください
             .new__main__makedbox__list__text
-              = m.text_area :text, {class:'new__main__makedbox__list__text__input', placeholder: '作り方を入力してください'}
+              = m.text_area :text, {class:'new__main__makedbox__list__text__input', required: "required", placeholder: '作り方を入力してください'}
 
         %button{type: 'button', class: 'new__main__makedbox__btn', id:'add_maked'} 追加する
 
       .new__main__point
-        = f.text_area :point, {class: 'new__main__point__input', maxlength: '150', placeholder: 'コツ、ポイント'}
+        = f.text_area :point, {class: 'new__main__point__input', maxlength: '200', placeholder: 'コツ、ポイント'}
 
       .new__main__submit
         = f.submit '投稿する', {class: 'new__main__submit__btn'}

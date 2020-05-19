@@ -1,7 +1,7 @@
 class Recipe < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :difficulty
-  belongs_to_active_hash :sex
+
   belongs_to :user
   belongs_to :category, optional: true
   has_many :ingredients, dependent: :destroy
@@ -14,4 +14,8 @@ class Recipe < ApplicationRecord
   has_many :makeds
   accepts_nested_attributes_for :makeds, allow_destroy: true
   mount_uploader :image, ImageUploader
+
+  validates :titl, :user_id, :category_id, :text, :image, presence: true
+  validates :text, length: { maximum: 200 }
+
 end
