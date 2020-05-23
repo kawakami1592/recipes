@@ -21,7 +21,7 @@
         = f.submit '探す', class: 'top__header__search__submit'
 
     %h3.top__header__categories
-       食材選択
+      食材選択
       .top__header__categories__box
         - @category_parents.each do |parent|
           = link_to "#{parent.name}", list_by_category_recipe_url(parent.id),class: 'top__header__categories__box__list'
