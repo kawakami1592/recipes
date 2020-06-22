@@ -11,6 +11,7 @@
 - JavaScript(jQuery)
 - RSpec
 - AWS
+- Docker()
 
 # 機能
 - ユーザ登録,ログイン機能(devise)
